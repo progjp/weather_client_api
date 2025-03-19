@@ -1,0 +1,31 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
+parameters:
+    typeAliases:
+        # Common structures
+    tmpDir: build/cache
+    fileExtensions:
+        # Standard php files and .dist config files
+        - php
+        - dist
+    reportUnmatchedIgnoredErrors: false
+    paths:
+      - src
+      - config
+    excludePaths:
+        analyse:
+            - src/Util
+            - config
+    level: max
+    scanDirectories:
+        - var/cache/dev/Symfony/Config
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+            # todo: work through these and eliminate 1 by 1
+            - message: '#[a-zA-Z0-9\\_]+ with no type specified#'
+            - message: '#[a-zA-Z0-9\\_]+ type has no value type specified in iterable type array#'
+            - message: '#[a-zA-Z0-9\\_]+ with no value type specified in iterable type array#'
+            - message: '#[a-zA-Z0-9\\_]+ has no type specified#'
+            - message: '#[a-zA-Z0-9\\_]+ only iterables are supported#'

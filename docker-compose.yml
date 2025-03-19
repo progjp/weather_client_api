@@ -1,0 +1,39 @@
+volumes:
+  symfony_app_var:
+  symfony_app_vendor:
+services:
+  weatherapi-app:
+    build:
+      context: ./
+      dockerfile: ./.docker/php/Dockerfile
+      args:
+        TIMEZONE: ${TIMEZONE}
+    container_name: lp-container
+    restart: always
+    env_file: app/.env
+    volumes:
+      - ./:/var/www/symfony:cached
+      - symfony_app_var:/var/www/symfony/var
+      - symfony_app_vendor:/var/www/symfony/vendor
+    ports:
+      - 8080:80
+    networks:
+      - weatherapi
+
+  nginx:
+    build:
+      context: ./.docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/symfony:cached
+      - symfony_app_var:/var/www/symfony/var
+      - symfony_app_vendor:/var/www/symfony/vendor
+    ports:
+      - 80:80
+    networks:
+      - weatherapi
+    env_file:
+      - ./.docker/nginx/.env.nginx.local
+
+networks:
+  weatherapi:

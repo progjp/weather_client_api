@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+ {% block body %}
+     <div class="container">
+         <div class="content">
+             <h3>Weather information</h3>
+             <div id="weather-details-block">
+                 <p>City: {{ city }}</p>
+                 <p>Country: {{ country }}</p>
+                 <p>Temperature: {{ temperature }}</p>
+                 <p>Humidity: {{ humidity }}</p>
+                 <p>Wind speed: {{ wind_speed }}</p>
+                 <p>Last updated: {{ last_updated }}</p>
+             </div>
+             <br/>
+         </div>
+     </div>
+ {% endblock %}
+ {% block javascriptsfooter %}
+ {% endblock %}
